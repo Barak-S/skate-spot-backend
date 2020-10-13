@@ -20,7 +20,8 @@ router.post('/skatespots/create', (req,res)=>{
     // console.log(req.body.newSpot)
     let newSpot = new SkateSpot(req.body.newSpot)    
     newSpot.save()
-    .then(() => console.log("saved NEW PARK succesfully", newSpot))
+    // .then(() => console.log("saved NEW PARK succesfully", newSpot))
+    .then(newPark => res.send(newPark))
     .catch(error => console.log(error));
 
 })
