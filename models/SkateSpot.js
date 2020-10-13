@@ -17,7 +17,10 @@ const SkateSpotSchema = new Schema({
     coordinates: {
       type: [Number],
     }
-  }
+  },
+  features: {
+    type: Array
+  },
 });
 
-module.exports = SkateSpot = mongoose.model("skateSpots", SkateSpotSchema);
+module.exports = SkateSpot = mongoose.model("skatespots", SkateSpotSchema);
