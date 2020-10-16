@@ -26,7 +26,8 @@ url.map(async url => {
                 name: resultData[i].name,
                 description: resultData[i].status,
                 location: { coordinates: [resultData[i].polygon.coordinates[0][0][1] , resultData[i].polygon.coordinates[0][0][0]]},
-                features: [ {id: 1, value: "Park", isChecked: true} ]
+                features: [ {id: 1, value: "Park", isChecked: true} ],
+                likes: Math.floor(Math.random() * 25) + 1 
             })
 
             skateSpot.save(() => {
