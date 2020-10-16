@@ -26,7 +26,18 @@ const SkateSpotSchema = new Schema({
   },
   likes:{
     type: Number
-  }
+  },
+  postedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  comments: [{
+    text: String,
+    postedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
+  }]
 });
 
 module.exports = SkateSpot = mongoose.model("skatespots", SkateSpotSchema);

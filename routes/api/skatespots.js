@@ -32,7 +32,7 @@ router.post('/skatespots/:id',(req,res)=>{
         console.log(err); 
     } 
     else{ 
-        console.log(req.params)
+        console.log(docs)
     } 
   }) 
 })

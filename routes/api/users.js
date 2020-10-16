@@ -10,7 +10,6 @@ const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
 
-
 // @route POST api/users/register
 // @desc Register user
 // @access Public
@@ -44,6 +43,17 @@ router.post("/register", (req, res) => {
       }
     });
   });
+
+  router.get('/:id', (req, res)=>{
+    User.findById(req.params.id, function (err, docs) { 
+      if (err){ 
+          console.log(err); 
+      } 
+      else{ 
+          res.json(docs.name)
+      } 
+    }) 
+  })
 
 
   // @route POST api/users/login
