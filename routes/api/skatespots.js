@@ -26,15 +26,28 @@ router.post('/skatespots/create', (req,res)=>{
 
 })
 
-router.post('/skatespots/:id',(req,res)=>{
+router.get('/skatespots/:id',(req,res)=>{
   SkateSpot.findById(req.params.id, function (err, docs) { 
     if (err){ 
         console.log(err); 
     } 
     else{ 
-        console.log(docs)
+        res.send(docs)
     } 
   }) 
+})
+
+router.put('/skatespots/:id/like',(req,res)=>{
+  SkateSpot.findByIdAndUpdate(
+    { _id: req.params.id },
+    { $inc: {likes:1} },
+    function(err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    })
 })
 
 
