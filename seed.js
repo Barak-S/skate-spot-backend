@@ -25,7 +25,8 @@ url.map(async url => {
             let skateSpot = new SkateSpot({ 
                 name: resultData[i].name,
                 description: resultData[i].status,
-                location: { coordinates: [resultData[i].polygon.coordinates[0][0][1] , resultData[i].polygon.coordinates[0][0][0]]}
+                location: { coordinates: [resultData[i].polygon.coordinates[0][0][1] , resultData[i].polygon.coordinates[0][0][0]]},
+                features: [ {id: 1, value: "Park", isChecked: true} ]
             })
 
             skateSpot.save(() => {

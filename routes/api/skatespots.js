@@ -26,5 +26,16 @@ router.post('/skatespots/create', (req,res)=>{
 
 })
 
+router.post('/skatespots/:id',(req,res)=>{
+  SkateSpot.findById(req.params.id, function (err, docs) { 
+    if (err){ 
+        console.log(err); 
+    } 
+    else{ 
+        console.log(req.params)
+    } 
+  }) 
+})
+
 
 module.exports = router;

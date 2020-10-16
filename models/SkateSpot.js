@@ -6,6 +6,9 @@ const SkateSpotSchema = new Schema({
     type: String,
     required: true
   },
+  address: {
+    type: String,
+  },
   description: {
     type: String,
   },
@@ -21,6 +24,9 @@ const SkateSpotSchema = new Schema({
   features: {
     type: Array
   },
+  likes:{
+    type: Number
+  }
 });
 
 module.exports = SkateSpot = mongoose.model("skatespots", SkateSpotSchema);
