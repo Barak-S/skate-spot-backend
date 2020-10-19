@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const SkateSpotSchema = new Schema({
   name: {
     type: String,
-    required: true
   },
   address: {
     type: String,
