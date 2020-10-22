@@ -9,6 +9,7 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
+const SkateSpot = require("../../models/SkateSpot");
 
 // @route POST api/users/register
 // @desc Register user
@@ -105,5 +106,18 @@ router.post("/login", (req, res) => {
       });
     });
   });
+
+  router.get('/:id/myspots', (req,res)=>{
+    User.findById(req.params.id, function (err, docs) { 
+      if (err){ 
+        console.log(err); 
+      } 
+      else{ 
+        SkateSpot.find({postedBy: req.params.id} ,function(err,docs){
+          res.send(docs)
+        })
+      } 
+    })   
+})
 
 module.exports = router;
