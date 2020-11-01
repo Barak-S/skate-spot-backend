@@ -55,19 +55,9 @@ router.post('/:id/delete',(req,res)=>{
         console.log(err) 
     } 
     else{ 
-        console.log("Removed User : ", docs); 
+        res.send( docs); 
     } 
   }); 
-  // console.log(req.body.id)
-  // SkateSpot.findById(req.body.id, function (err, docs) { 
-  //   if (err){ 
-  //       console.log(err); 
-  //   } 
-  //   else{ 
-  //       res.send(docs)
-  //   } 
-  // }) 
-
 })
 
 module.exports = router;
