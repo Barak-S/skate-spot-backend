@@ -7,6 +7,8 @@ const keys = require("../../config/keys");
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+
+const verifyUserAndUpdate = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
 const SkateSpot = require("../../models/SkateSpot");
@@ -57,9 +59,6 @@ router.post("/register", (req, res) => {
   })
 
 
-  // @route POST api/users/login
-// @desc Login user and return JWT token
-// @access Public
 router.post("/login", (req, res) => {
     // Form validation
   const { errors, isValid } = validateLoginInput(req.body);
@@ -68,7 +67,7 @@ router.post("/login", (req, res) => {
       return res.status(400).json(errors);
     }
   const email = req.body.email;
-    const password = req.body.password;
+  const password = req.body.password;
   // Find user by email
     User.findOne({ email }).then(user => {
       // Check if user exists
@@ -106,6 +105,44 @@ router.post("/login", (req, res) => {
       });
     });
   });
+
+  router.post("/verify", async (req, res) => {
+    // const { errors, isValid } = verifyUserAndUpdate(req.body);
+    // if (!isValid) {
+    //   return res.status(400).json(errors);
+    // }
+    const email = req.body.email;
+    const newPassword = req.body.newPassword;
+    const oldPassword = req.body.oldPassword;
+  
+    let user = await User.findOne({ email })
+    if (!user) {
+      return res.status(404).json({ emailnotfound: "Email not found" });
+    } 
+    const validPassword = await bcrypt.compare(oldPassword, user.password)
+    if (!validPassword){
+      return res.json({ errors: "wrong password" })
+    }
+    if (validPassword) {
+      if(newPassword.length > 1){
+        bcrypt.hash(newPassword, 10, (err, hash) => {
+          if (err) {
+            console.log(err)
+          } 
+          user.password = hash;
+          user
+            .save()
+            .then(resp => res.json(resp))
+            .catch(err => console.log(err));
+        });
+      } else {
+        return res.json({ errors: "password must be longer than 3 characters"})
+      }
+
+
+    } 
+  })
+
 
   router.get('/:id/myspots', (req,res)=>{
     User.findById(req.params.id, function (err, docs) { 
