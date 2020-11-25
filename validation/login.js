@@ -24,11 +24,15 @@ return {
 
 module.exports = function verifyUserAndUpdate(data) {
   let errors = {};
-// Convert empty fields to an empty string so we can use validator functions
-  data.password = !isEmpty(data.password) ? data.password : "";
-// Password checks
-  if (Validator.isEmpty(data.password)) {
-    errors.password = "Password field is required";
+  
+  data.oldPassword = !isEmpty(data.oldPassword) ? data.oldPassword : "";
+  data.newPassword = !isEmpty(data.newPassword) ? data.newPassword : "";
+
+  if (Validator.isEmpty(data.oldPassword)) {
+    errors.oldPassword = "Old password field is required";
+  }
+  if (Validator.isEmpty(data.newPassword)) {
+    errors.newPassword = "New password field is required";
   }
 return {
     errors,
