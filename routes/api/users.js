@@ -7,7 +7,7 @@ const keys = require("../../config/keys");
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
-const verifyUserAndUpdate = require("../../validation/login");
+const verifyUserAndUpdate = require("../../validation/verify");
 
 const User = require("../../models/User");
 const SkateSpot = require("../../models/SkateSpot");
@@ -58,18 +58,18 @@ router.get('/:id', (req, res)=>{
 router.post("/login", (req, res) => {
   // Form validation
   const { errors, isValid } = validateLoginInput(req.body);
-  // Check validation
+
   if (!isValid) {
     return res.status(400).json(errors);
   }
   const email = req.body.email;
   const password = req.body.password;
   User.findOne({ email }).then(user => {
-    // Check if user exists
+
     if (!user) {
       return res.status(404).json({ emailnotfound: "Email not found" });
     }
-  // Check password
+
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         const payload = {
